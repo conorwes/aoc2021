@@ -1,5 +1,8 @@
 #include "common.hpp"
 
+#include <functional>
+#include <algorithm>
+
 class Day_03 {
 public:
    ~Day_03() {};
@@ -15,17 +18,11 @@ public:
          one_count = 0;
 
          for (size_t j = 0; j < vec.size(); j++) {
-            if (vec.at(j)[i] == '1') {
-               one_count++;
-            }
-            else {
-               zero_count++;
-            }
+            vec.at(j)[i] == '1' ? one_count++ : zero_count++;
          }
 
-         if (one_count > zero_count) {
+         if (one_count > zero_count)
             gamma += pow(2, width - i - 1);
-         }
       }
 
       epsilon = pow(2, width) - gamma - 1;
@@ -39,55 +36,34 @@ public:
    static bool PartTwo(const std::vector<std::string>& vec, int& out) {
       out = 0;
       int oxygen = 0, carbon = 0, width = vec[0].size();
-      std::vector<std::string> valid_oxy{ vec }, valid_carb{ vec };
 
-      auto process_data = [&width](std::vector<std::string>& valid, bool isOxygen) {
-         int zero_count, one_count;
-         for (size_t i = 0; i < width; i++) {
-            zero_count = one_count = 0;
-            for (size_t j = 0; j < valid.size(); j++) {
-               if (valid.at(j)[i] == '1') {
-                  one_count++;
-               }
-               else {
-                  zero_count++;
-               }
+      auto process_entries = [vec, width](std::function<char(int)> filter)
+      {
+         std::vector<std::string> worker = vec;
+
+         for (size_t i = 0; i < width && worker.size() > 1; i++)
+         {
+            int count = 0;
+            for (auto&& entry : worker)
+            {
+               count += entry[i] == '1' ? 1 : -1;
             }
 
-            if (one_count > zero_count) {
-               for (size_t j = 0; j < valid.size(); j++) {
-                  if (valid.at(j)[i] == (isOxygen == true ? '0' : '1')) {
-                     valid.erase(valid.begin() + j);
-                     j--;
-                  }
-               }
-            }
-            else {
-               for (size_t j = 0; j < valid.size(); j++) {
-                  if (valid.at(j)[i] == (isOxygen == true ? '1' : '0')) {
-                     valid.erase(valid.begin() + j);
-                     j--;
-                  }
-               }
-            }
-
-            if (valid.size() <= 1) {
-               break;
-            }
+            char keep = filter(count);
+            std::vector<std::string> valid;
+            std::copy_if(worker.begin(), worker.end(), std::back_inserter(valid),
+               [keep, i](std::string entry) { return entry[i] == keep; }
+            );
+            worker = valid;
          }
 
-         return true;
+         return std::stoi(worker[0], nullptr, 2);
       };
 
-      process_data(valid_oxy, true);
-      oxygen = std::stoi(valid_oxy[0], nullptr, 2);
-      std::cout << oxygen << std::endl;
-      process_data(valid_carb, false);
-      carbon = std::stoi(valid_carb[0], nullptr, 2);
-      std::cout << carbon << std::endl;
+      oxygen = process_entries([](int count) { return count >= 0 ? '1' : '0'; });
+      carbon = process_entries([](int count) { return count < 0 ? '1' : '0'; });
       out = oxygen * carbon;
-
-      //_ASSERT(out == 1599311480);
+      _ASSERT(out == 2555739);
       return true;
    }
 
