@@ -23,10 +23,12 @@
     <ClCompile Include="Source\common.hpp" />
     <ClCompile Include="Source\day_01.cpp" />
     <ClCompile Include="Source\day_02.cpp" />
+    <ClCompile Include="Source\day_03.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Source\Inputs\Day_01.txt" />
     <Text Include="Source\Inputs\Day_02.txt" />
+    <Text Include="Source\Inputs\Day_03.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

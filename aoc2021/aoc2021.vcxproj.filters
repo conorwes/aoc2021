@@ -30,12 +30,18 @@
     <ClCompile Include="Source\day_02.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\day_03.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Source\Inputs\Day_01.txt">
       <Filter>Source Files\Inputs</Filter>
     </Text>
     <Text Include="Source\Inputs\Day_02.txt">
+      <Filter>Source Files\Inputs</Filter>
+    </Text>
+    <Text Include="Source\Inputs\Day_03.txt">
       <Filter>Source Files\Inputs</Filter>
     </Text>
   </ItemGroup>
