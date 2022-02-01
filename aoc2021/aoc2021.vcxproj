@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\aoc2021.cpp" />
-    <ClCompile Include="Source\common.cpp" />
+    <ClCompile Include="Source\common.hpp" />
     <ClCompile Include="Source\day_01.cpp" />
+    <ClCompile Include="Source\day_02.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Source\Inputs\Day_01.txt" />
+    <Text Include="Source\Inputs\Day_02.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

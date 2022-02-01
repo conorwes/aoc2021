@@ -1,4 +1,4 @@
-#include "common.cpp"
+#include "common.hpp"
 
 class Day_01 {
 public:
@@ -44,7 +44,7 @@ public:
       return true;
    }
 
-   static int Evaluate() {
+   static bool Evaluate() {
       std::ifstream in("C:/Repositories/aoc2021/aoc2021/Source/Inputs/Day_01.txt");
       std::string buf;
       std::vector<int> vec;
@@ -64,9 +64,6 @@ public:
          return 1;
 
       std::cout << "Part Two: " << out << std::endl;
-
-      std::cout << std::endl;
-
-      return 0;
+      return true;
    }
 };
