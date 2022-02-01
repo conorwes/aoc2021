@@ -7,7 +7,7 @@
 class Common {
 public:
    ~Common() {};
-   
+
    static std::vector<std::string> split(std::string str, char delimiter) {
       std::vector<std::string> tokens;
       std::stringstream ss(str);

@@ -55,14 +55,14 @@ public:
       std::cout << "Day One" << std::endl;
 
       int out = 0;
-      if(!PartOne(vec, out))
+      if (!PartOne(vec, out))
          return 1;
 
       std::cout << "Part One: " << out << std::endl;
 
       if (!PartTwo(vec, out))
          return 1;
-      
+
       std::cout << "Part Two: " << out << std::endl;
 
       std::cout << std::endl;
