@@ -7,13 +7,37 @@
 #include <string>
 #include <sstream>
 
-static std::vector<std::string> split(std::string str, char delimiter) {
-   std::vector<std::string> tokens;
-   std::stringstream ss(str);
+static std::string trim(std::string str) {
+   size_t beginPos = str.find_first_not_of(" \t");
+   if (beginPos == std::string::npos) {
+      return "";
+   }
 
-   std::string worker;
-   while (std::getline(ss, worker, delimiter)) {
-      tokens.push_back(worker);
+   size_t endPos = str.find_last_not_of(" \t");
+   size_t len = endPos - beginPos + 1;
+
+   return str.substr(beginPos, len);
+}
+
+static std::vector<std::string> split(std::string str, char delimiter) {
+   auto worker = trim(str);
+
+   // quick check to remove any duplicated delimiter instances
+   for (size_t i = 1; i < worker.size(); i++) {
+      if (worker[i] == worker[i - 1]) {
+         if (worker[i] == delimiter) {
+            worker.erase(i - 1, 1);
+            i--;
+         }
+      }
+   }
+
+   std::vector<std::string> tokens;
+   std::stringstream ss(worker);
+
+   std::string token;
+   while (std::getline(ss, token, delimiter)) {
+      tokens.push_back(token);
    }
 
    return tokens;
@@ -41,18 +65,6 @@ static std::vector<std::string> split(const std::string& original, const std::st
    }
    result.push_back(original.substr(offset));
    return result;
-}
-
-static std::string trim(std::string str) {
-   size_t beginPos = str.find_first_not_of(" \t");
-   if (beginPos == std::string::npos) {
-      return "";
-   }
-
-   size_t endPos = str.find_last_not_of(" \t");
-   size_t len = endPos - beginPos + 1;
-
-   return str.substr(beginPos, len);
 }
 
 static std::vector<std::string> readLines(const std::string& basename)
